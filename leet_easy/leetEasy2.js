@@ -42,7 +42,7 @@ function missing(A) {
 }
 
 // tape
-function solution(A) {
+function findMininumDiff(A) {
   // write your code in JavaScript (Node.js 8.9.4)
 
   let fromStart = new Array(A.length - 1);
@@ -62,4 +62,76 @@ function solution(A) {
   console.log(fromStart, fromEnd);
 }
 
-solution([70, 3]);
+function frogRiverOne(X, A) {
+  // write your code in JavaScript (Node.js 8.9.4)
+  let position = new Set();
+
+  for (let i = A[0]; i < X + 1; i++) {
+    position.add(i);
+  }
+
+  let output;
+  for (let i = 1; i < A.length; i++) {
+    position.delete(A[i]);
+    if (position.size === 0) {
+      output = i;
+      break;
+    }
+  }
+  if (output || output === 0) return output;
+  return -1;
+}
+
+// max counters
+// you can write to stdout for debugging purposes, e.g.
+// console.log('this is a debug message');
+
+function findMax(N, A) {
+  // write your code in JavaScript (Node.js 8.9.4)
+  let counters = new Array(N).fill(0);
+  let countresUpdate = new Array(N).fill(false);
+  let update = false;
+
+  let max = 0;
+  const incrementCounter = (index) => {
+    temp = counters[index] + 1;
+    counters[index] = temp;
+    if (temp > max) max = temp;
+  };
+
+  const maxCounter = () => {
+    for (let i = 0; i < N; i++) {
+      counters[i] = max;
+    }
+  };
+
+  for (element of A) {
+    if (element <= N) {
+      incrementCounter(element - 1);
+    } else {
+      update = true;
+      //maxCounter();
+    }
+  }
+
+  return counters;
+}
+
+// missing integers
+
+function missing(A) {
+  // write your code in JavaScript (Node.js 8.9.4)
+  // write your code in JavaScript (Node.js 8.9.4)
+  let unique = new Set(A);
+  let smallest = 1;
+
+  for (let i = 0; i < unique.size; i++) {
+    if (unique.has(smallest)) {
+      smallest++;
+    } else {
+      return smallest;
+    }
+  }
+
+  return smallest;
+}
