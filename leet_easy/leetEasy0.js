@@ -254,3 +254,38 @@ export class StringCapital extends String {
     console.log(this.str);
   }
 }
+
+export const cyclicPermutations = (A, K) => {
+  // you can write to stdout for debugging purposes, e.g.
+  // console.log('this is a debug message');
+  // write your code in JavaScript (Node.js 8.9.4)
+  let myArray = [...A];
+  let L = myArray.length;
+
+  if (K >= L) K = K % L;
+  // return the array if the length is equal to the shift
+  // or the length of the array is 1
+  // or the shift is zero or a multiple of the length
+
+  if (L === 1 || L === K || K === 0) return myArray;
+  // we will start the cyclic permutation form L-K
+  let tempStore1 = myArray[(L - K) % L];
+  let index = 0;
+  let tempStore2;
+
+  let used = new Set();
+  for (let element of myArray) {
+    tempStore2 = myArray[index];
+    myArray[index] = tempStore1;
+    used.add(index);
+    tempStore1 = tempStore2;
+    index = (index + K) % L;
+    if (used.has(index)) {
+      index++;
+      index = index % L;
+      tempStore1 = A[index];
+      index = (index + K) % L;
+    }
+  }
+  return myArray;
+};
